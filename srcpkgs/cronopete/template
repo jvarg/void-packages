@@ -1,0 +1,14 @@
+# Template file for 'cronopete'
+pkgname=cronopete
+version=3.25.0
+revision=1
+build_style=cmake
+configure_args="-DNO_APPINDICATOR=on"
+hostmakedepends="cmake intltool pkg-config vala"
+makedepends="gsl-devel gtk+3-devel libgee08-devel udisks2-devel"
+short_desc="Backup utility for Linux modeled after Apple's Time Machine"
+maintainer="local <root@localhost>"
+homepage="http://www.rastersoft.com/programas/cronopete.html"
+license="GPL-3"
+distfiles="https://github.com/rastersoft/${pkgname}/archive/${version}.tar.gz"
+checksum=3c61534bd10d9f1cfaed8977d9a2dab5092a6563d6cf7716f94882d9c5854ecf

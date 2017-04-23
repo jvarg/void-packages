@@ -1,0 +1,33 @@
+# Template file for 'meh'
+pkgname=meh
+version=0.3
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+#build_style=make
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="make giflib-devel ImageMagick libmagick-devel libnetpbm-devel"
+#makedepends=""
+#depends=""
+short_desc="Simple Image Viewer"
+maintainer="jwagner <johannes.wagner@openmailbox.org>"
+license="MIT"
+homepage="http://www.johnhawthorn.com/meh/"
+distfiles="https://github.com/jhawthorn/meh/archive/v0.3.tar.gz"
+checksum=348dc315da17798ba836cc106bff6fb8ddc0d6774602f90aa456d92a999a3362
+
+
+do_build() {
+sed -e "s|generic CC=gcc CPP=\"gcc -E\"|zips CC=$CC CPP=\"$CPP -E\" CFLAGS=\"$CFLAGS \${CFLAGS_NOOPT} -g -pg\" LFLAGS2=\"$LDFLAGS\"|g" -i Makefile
+make -f Makefile 
+}
+
+do_install() {
+make PREFIX=/usr DESTDIR=${DESTDIR} -f Makefile install
+}
+
