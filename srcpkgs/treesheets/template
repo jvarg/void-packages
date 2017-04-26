@@ -1,0 +1,48 @@
+# Template file for 'treesheets'
+pkgname=treesheets
+version=git20161120
+revision=1
+_gituser=aardappel
+_gitrev=7baabf3
+_binname=treesheets
+build_style=gnu-makefile
+hostmakedepends="${makedepends}"
+makedepends="wxWidgets-devel"
+short_desc="Open Source Free Form Data Organizer"
+maintainer="local <root@localhost>"
+license="ZLIB"
+homepage="http://strlen.com/treesheets/"
+distfiles="https://github.com/${_gituser}/${pkgname}/tarball/${_gitrev}"
+checksum=ddfbed86ad1ca5c8559ddb1fcf9b34f6f07bed309752244e1a9272dd5e937332
+wrksrc="${_gituser}-${pkgname}-${_gitrev}"
+
+do_extract() {
+	tar -x --no-same-permissions --no-same-owner -f ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_gitrev} -C "$XBPS_BUILDDIR"
+	if [ $? -ne 0 ]; then
+		msg_error "extracting ${_gitrev} into $XBPS_BUILDDIR.\n"
+	fi
+}
+
+do_build() {
+	cd $wrksrc/src
+	CXXFLAGS="-fPIE -pie" make
+}
+
+do_install() {
+	sed \
+		-e "s|%PKGNAME%|${pkgname}|" \
+		-e "s|%EXENAME%|${_binname}|" \
+		${FILESDIR}/treesheets.sh.in > ${wrksrc}/treesheets.sh
+	vbin ${wrksrc}/treesheets.sh treesheets
+	vlicense ${wrksrc}/ZLIB_LICENSE.txt
+	vmkdir usr/lib/${pkgname} 755
+	vcopy ${wrksrc}/TS/docs usr/lib/${pkgname}
+	vinstall ${wrksrc}/TS/readme.html 644 usr/lib/${pkgname}
+	vcopy ${wrksrc}/TS/examples usr/lib/${pkgname}
+	vcopy ${wrksrc}/TS/images usr/lib/${pkgname}
+	vinstall ${wrksrc}/TS/treesheets 755 usr/lib/${pkgname}
+	vinstall ${wrksrc}/TS/treesheets.desktop 644 usr/share/applications
+	vinstall ${wrksrc}/TS/images/icon32.png 644 usr/share/pixmaps treesheets.png
+	vinstall ${wrksrc}/TS/images/icon16.png 644 usr/share/pixmaps treesheets-16x16.png
+	vdoc ${wrksrc}/TODO.txt
+}
