@@ -1,19 +1,19 @@
 # Template file for 'python-keyring'
 pkgname=python-keyring
-version=10.3.2
+version=10.4.0
 revision=1
 noarch=yes
 wrksrc="keyring-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
-depends="python-setuptools"
+depends="python-setuptools python-SecretStorage"
 pycompile_module="keyring"
 short_desc="Python2 interface to the system keyring service"
 maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
 license="MIT"
 homepage="https://github.com/jaraco/keyring"
 distfiles="${PYPI_SITE}/k/keyring/keyring-${version}.tar.gz"
-checksum=f462698bc8b96ef5f9fb31d392611f416c808a8244d679fb02530b72bab01ad6
+checksum=901a3f4ed0dfba473060281b58fd3b649ce70f59cb34a9cf6cb5551218283b26
 alternatives="keyring:keyring:/usr/bin/keyring2"
 
 pre_build() {
@@ -25,7 +25,7 @@ pre_build() {
 python3-keyring_package() {
 	noarch=yes
 	pycompile_module="keyring"
-	depends="python3-setuptools"
+	depends="python3-setuptools python3-SecretStorage"
 	replaces="python3.4-keyring>=0"
 	short_desc="${short_desc/Python2/Python3}"
 	alternatives="keyring:keyring:/usr/bin/keyring3"

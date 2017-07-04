@@ -1,6 +1,6 @@
 # Template file for 'collectl'
 pkgname=collectl
-version=4.1.2
+version=4.2.0
 revision=1
 noarch=yes
 conf_files="/etc/collectl.conf"
@@ -9,8 +9,9 @@ short_desc="Collects data that describes the current system status"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2, Artistic"
 homepage="http://collectl.sourceforge.net/"
+_changelog="http://collectl.sourceforge.net/Releases.html"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.src.tar.gz"
-checksum=972654e93ffa1ad535c6ef760c55f1ee53323893217aa83d4ad0f5aff824c431
+checksum=bf4c52d315d4e754b8275f6c6a9a48188c440f78c4307e5f72abcb518a9d07d0
 
 do_install() {
 	export DESTDIR

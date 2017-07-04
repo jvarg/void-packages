@@ -1,6 +1,6 @@
 # Template file for 'simgear'
 pkgname=simgear
-version=2017.1.2
+version=2017.2.1
 revision=1
 # XXX: always keep in sync with flightgear version!
 build_style=cmake
@@ -13,7 +13,7 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-2"
 homepage="http://www.flightgear.org/"
 distfiles="$SOURCEFORGE_SITE/project/flightgear/release-${version%.*}/${pkgname}-${version}.tar.bz2"
-checksum=69c8223051b039b00038aabbb8660cecce1866e3f854dadd9543db824d232f6b
+checksum=9924592c01cb41ad66a0ff1dc43b7678ceec69fb573d3f4e4637e26c247c7a9e
 
 # Suppress warnings regarding auto_ptr
 CXXFLAGS="-Wno-deprecated-declarations"

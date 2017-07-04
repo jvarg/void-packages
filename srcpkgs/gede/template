@@ -1,6 +1,6 @@
 # Template file for 'gede'
 pkgname=gede
-version=2.0.3
+version=2.1.1
 revision=1
 build_style=qmake
 build_wrksrc="src"
@@ -12,7 +12,7 @@ maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="BSD"
 homepage="http://acidron.com/gede"
 distfiles="http://gede.acidron.com/uploads/source/${pkgname}-${version}.tar.xz"
-checksum=730e69e513c9a15fa41cdb7a02c91cacf570974f4af571703a54d6fce4acd4fe
+checksum=2d3924ccc3749bc2967e05a331c905800d3a350c185182e3ce1f8dc376fd3362
 
 if [ -n "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt-host-tools qt-devel"

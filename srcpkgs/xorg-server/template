@@ -1,7 +1,7 @@
 # Template build file for 'xorg-server'.
 pkgname=xorg-server
 version=1.19.3
-revision=2
+revision=4
 build_style=gnu-configure
 configure_args="--enable-ipv6 --enable-record --enable-xorg
  --enable-xnest --enable-xephyr --enable-composite --enable-xvfb
@@ -23,7 +23,6 @@ checksum=677a8166e03474719238dfe396ce673c4234735464d6dadf2959b600d20e5a98
 
 lib32disabled=yes
 
-# XXX --enable-xwayland has been disabled temporarily
 hostmakedepends="pkg-config perl flex"
 makedepends="
  damageproto inputproto glproto xproto presentproto
@@ -34,22 +33,25 @@ makedepends="
  libXfont-devel libXmu-devel libXrender-devel libXfixes-devel libXi-devel
  libXaw-devel libdrm-devel libXtst-devel libXres-devel libxkbui-devel
  libxkbfile-devel libXxf86dga-devel libXv-devel pixman-devel libxshmfence-devel
- wayland-devel libepoxy-devel xcb-util-renderutil-devel libXfont2-devel"
+ wayland-devel wayland-protocols libepoxy-devel xcb-util-renderutil-devel
+ libXfont2-devel"
 # See hw/xfree86/common/xf86Module.h. Only care for the major version.
 depends="xkeyboard-config"
 provides="xserver-abi-extension-10_1 xserver-abi-input-24_1 xserver-abi-video-23_1 xf86-video-modesetting-1_1"
 replaces="xf86-video-modesetting>=0"
+subpackages="xorg-server-devel xorg-server-xephyr xorg-server-xnest xorg-server-xvfb xorg-server"
 
 case "$XBPS_TARGET_MACHINE" in
 i686*|x86_64*)
-	# Enable glamor/dri/opengl by default on x86.
-	configure_args+=" --enable-glamor --enable-dri2 --enable-dri3 --enable-glx"
+	# Enable glamor/dri/opengl/xwayland by default on x86.
+	configure_args+=" --enable-glamor --enable-dri2 --enable-dri3 --enable-glx --enable-xwayland"
 	makedepends+=" MesaLib-devel"
 	replaces+=" glamor-egl>=0"
+	subpackages+=" xorg-server-xwayland"
 	;;
 *)
 	# Enable dri2 on !x86 via libdri.
-	configure_args+=" --disable-glx --disable-dri --enable-dri2 --enable-dri3"
+	configure_args+=" --disable-glx --disable-dri --enable-dri2 --enable-dri3 --disable-xwayland"
 	makedepends+=" MesaLib-devel dri2proto libdri2-devel-git"
 	;;
 esac
@@ -85,6 +87,12 @@ post_install() {
 	fi
 }
 
+xorg-server-xwayland_package() {
+	short_desc="A nested X server that runs as a wayland client"
+	pkg_install() {
+		vmove usr/bin/Xwayland
+	}
+}
 xorg-server-xnest_package() {
 	short_desc="A nested X server that runs as an X application"
 	pkg_install() {

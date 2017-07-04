@@ -1,6 +1,6 @@
 # Template file for 'gjs'
 pkgname=gjs
-version=1.48.1
+version=1.48.5
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool glib-devel gobject-introspection"
@@ -9,9 +9,9 @@ makedepends="libffi-devel libgirepository-devel dbus-glib-devel
 short_desc="Mozilla-based javascript bindings for the GNOME platform"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MPL-1.1, LGPL-2.1, GPL-2"
-homepage="http://live.gnome.org/Gjs"
+homepage="https://wiki.gnome.org/action/show/Projects/Gjs"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=21198950472c3c8f4a4679b0292c663faed04b07ee5de026bfd19eaa4ed15a84
+checksum=cc37998e283b6e25e1814026aa5bb96e145e1ce902b02133977bbdac8db3e042
 
 gjs-devel_package() {
 	depends="libgirepository-devel mozjs38-devel gjs>=${version}_${revision}"

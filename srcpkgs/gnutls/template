@@ -1,6 +1,6 @@
 # Template file for 'gnutls'
 pkgname=gnutls
-version=3.5.11
+version=3.5.14
 revision=1
 build_style=gnu-configure
 configure_args="--with-zlib --disable-guile --disable-static
@@ -14,7 +14,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="https://gnutls.org"
 license="GPL-3, LGPL-2.1"
 distfiles="ftp://ftp.gnutls.org/gcrypt/gnutls/v${version%.*}/gnutls-${version}.tar.xz"
-checksum=51765cc5579e250da77fbd7871507c517d01b15353cc40af7b67e9ec7b6fe28f
+checksum=4aa12dec92f42a0434df794aca3d02f6f2a35b47b48c01252de65f355c051bda
 
 pre_configure() {
 	autoreconf -fi

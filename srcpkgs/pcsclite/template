@@ -1,6 +1,6 @@
 # Template file for 'pcsclite'
 pkgname=pcsclite
-version=1.8.20
+version=1.8.22
 revision=1
 wrksrc="pcsc-lite-${version}"
 build_style=gnu-configure
@@ -12,11 +12,12 @@ configure_args="--enable-libudev --sbindir=/usr/bin"
 hostmakedepends="intltool pkg-config python"
 makedepends="eudev-libudev-devel libusb-devel python-devel"
 depends="python"
-distfiles="https://alioth.debian.org/frs/download.php/file/4203/pcsc-lite-${version}.tar.bz2"
-checksum=ec7d0114016c788c1c09859c84860f6cec6c4595436d23245105154b9c046bb2
+distfiles="https://alioth.debian.org/frs/download.php/file/4225/pcsc-lite-${version}.tar.bz2"
+checksum=6a358f61ed3b66a7f6e1f4e794a94c7be4c81b7a58ec360c33791e8d7d9bd405
 
 post_install() {
 	vsv pcscd
+	vlicense COPYING
 }
 
 pcsclite-devel_package() {

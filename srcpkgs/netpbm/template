@@ -1,14 +1,15 @@
 # Template file for 'netpbm'
 pkgname=netpbm
 # from http://svn.code.sf.net/p/netpbm/code/advanced/doc/HISTORY
-version=10.78.01
+version=10.79.00
 revision=1
-_githash=60eb8ee4bf3e0878031ec10989b9c8069972e89d
-_githash_guide=94320b2e2b117559c0b29e94770726111934f13c
+_githash=08d938dc6fc6b30e5da6733b52c97169c0d24f8a                              
+_githash_guide=c524ff1253a8cc17d3993dd557e5c77126cdc7ac
 create_wrksrc=yes
 build_wrksrc="netpbm-mirror-${_githash}"
 hostmakedepends="pkg-config perl python flex"
-makedepends="libjpeg-turbo-devel tiff-devel libpng-devel zlib-devel libxml2-devel libX11-devel"
+makedepends="libX11-devel libjpeg-turbo-devel libpng-devel libxml2-devel
+ tiff-devel zlib-devel"
 short_desc="Toolkit for manipulation of graphic images"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="BSD,GPL-2,custom"
@@ -16,8 +17,8 @@ homepage="http://netpbm.sourceforge.net/"
 nocross=yes
 distfiles="https://github.com/chneukirchen/netpbm-mirror/archive/${_githash}.tar.gz
  https://github.com/chneukirchen/netpbm-mirror/archive/${_githash_guide}.tar.gz"
-checksum="ec5651b0664f01d43e92d7e4a8bcc402d85bc3bc99c09c980f1965600f031516
- 2eb91b7e4ff1d8021818c2a29f9721653264cc7cbc12ee756139d9e3bd1ffe3c"
+checksum="b445cfd2648135820e03437c33c020720f254716d14573f5cbd4776f63cf1129
+ 01314c67ead57af61a344c4f6a533e717c27a9a9da5539e13c12f57615729ce9"
 
 post_extract() {
 	cd $build_wrksrc

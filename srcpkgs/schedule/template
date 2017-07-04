@@ -1,6 +1,6 @@
 # Template file for 'schedule'
 pkgname=schedule
-version=7.5.1
+version=7.5.4
 revision=1
 noarch=yes
 hostmakedepends="perl"
@@ -10,7 +10,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="BSD"
 homepage="https://github.com/vaeth/schedule/"
 distfiles="https://github.com/vaeth/schedule/archive/v${version}.tar.gz"
-checksum=f2ff9bb550aee239216f5898b0b7fc3d6c95ffe083de63fabaa89c2659bbaaa9
+checksum=7db23284a7085dc7753badc7491ecd622b7bfca6dc91fa6dfdc90cdbc9cdd569
 
 do_install() {
 	for bin in bin/*; do

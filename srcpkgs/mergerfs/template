@@ -1,16 +1,16 @@
 # Template file for 'mergerfs'
 pkgname="mergerfs"
-version=2.19.0
-revision=1
+version=2.22.0
+revision=2
 build_style=gnu-makefile
 makedepends="fuse-devel attr-devel"
-hostmakedepends="pkg-config"
+hostmakedepends="automake libtool pkg-config"
 short_desc="FUSE union filesystem"
 maintainer="xinterer <xinterer@users.noreply.github.com>"
 license="ISC"
 homepage="https://github.com/trapexit/mergerfs"
-distfiles="${homepage}/releases/download/${version}/${pkgname}-${version}.tar.gz"
-checksum=3b0980385817cf7474aa802b21d9561121ca52468aea8c0140b3e249ccb03a59
+distfiles="${homepage}/archive/${version}/${pkgname}-${version}.tar.gz"
+checksum=258de9611e7300a50708b33b0f3971496ac313ecec1ae695c92b5cd853148a75
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl)	# Does not have pandoc

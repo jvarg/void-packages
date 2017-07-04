@@ -1,6 +1,6 @@
 # Template file for 'mame'
 pkgname=mame
-version=0184
+version=0187
 revision=1
 wrksrc="mame-mame${version}"
 homepage="http://mamedev.org"
@@ -8,7 +8,7 @@ distfiles="https://github.com/mamedev/mame/archive/mame${version}.tar.gz"
 short_desc="The Multiple Arcade Machine Emulator"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-2"
-checksum=8bae785a5fc97a84a8bb94a123de3b5c71efc31fe849151da9701329d6a31555
+checksum=5ac6950158ba6f550b3c5f19434752e837f17edf0d83c41ab07d0f02cca787b0
 
 hostmakedepends="perl pkg-config python automoc4"
 makedepends="libstdc++-devel SDL2_ttf-devel $(vopt_if qt qt5-devel) lua-devel
@@ -18,10 +18,12 @@ nocross=yes
 replaces="sdlmame>=0 sdlmess>=0"
 
 case "$XBPS_TARGET_MACHINE" in
-	i686*) nodebug=yes
+	i686*)	# was: nodebug=yes
+		broken="https://build.voidlinux.eu/builders/i686_builder/builds/2964/steps/shell_3/logs/stdio"
+		;;
 esac
 
-CXXFLAGS="-std=c++14 -I${XBPS_CROSS_BASE}/usr/include/lua5.3"
+CXXFLAGS="-I${XBPS_CROSS_BASE}/usr/include/lua5.3"
 LDFLAGS="-Wl,-fuse-ld=gold"
 
 build_options="qt"
@@ -31,10 +33,15 @@ fi
 
 do_build() {
 	local opts="REGENIE=1"
+	opts+=" TARGETOS=linux"
+	case "$XBPS_TARGET_MACHINE" in
+		x86_64*|aarch64*) opts+=" PTR64=1" ;;
+	esac
 	opts+=" NOWERROR=1"
 	opts+=" TOOLS=1"
 	opts+=" VERBOSE=1"
 	opts+=" OPTIMIZE=3"
+	opts+=" PRECOMPILE=0"
 	opts+=" USE_SYSTEM_LIB_EXPAT=1"
 	opts+=" USE_SYSTEM_LIB_ZLIB=1"
 	opts+=" USE_SYSTEM_LIB_JPEG=1"
@@ -53,15 +60,11 @@ do_build() {
 		opts+=" CROSS_BUILD=1 OVERRIDE_CC=${CC} OVERRIDE_CXX=${CXX} OVERRIDE_LD=${CC}"
 	fi
 	case "$XBPS_TARGET_MACHINE" in
-		i686*)	# Build mamearcade and mess separately to
-			# overcome linker memory exhaustion
+		i686*)	# Overcome linker memory exhaustion
 			opts+=" SYMBOLS=0"
-			make ${opts} ${makejobs}
-			;;
-		*)	# Build all in one mame[64]
-			make ${opts} ${makejobs}
 			;;
 	esac
+	make ${opts} ${makejobs}
 }
 do_install() {
 	local f

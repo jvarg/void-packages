@@ -1,6 +1,6 @@
 # Template file for 'perl-Devel-CheckLib'
 pkgname=perl-Devel-CheckLib
-version=1.09
+version=1.11
 revision=1
 noarch=yes
 build_style=perl-module
@@ -13,4 +13,4 @@ maintainer="Sir_Boops <admin@boops.me>"
 homepage="http://search.cpan.org/dist/Devel-CheckLib/"
 license="Artistic, GPL-1"
 distfiles="${CPAN_SITE}/Devel/Devel-CheckLib-${version}.tar.gz"
-checksum=0301aa2cc827fb9bb16cc7ca1d59bd5193b9536ddbdbc3621835d8c61c57efd6
+checksum=bd6d1c187e80be6de1f0d37add441ba8f14950c7bc1f54e764770ed484b232c1

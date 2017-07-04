@@ -1,16 +1,16 @@
 # Template file for 'webkit2gtk'
 pkgname=webkit2gtk
-version=2.16.1
+version=2.16.5
 revision=1
 wrksrc="webkitgtk-$version"
 build_style=cmake
 configure_args="-DPORT=GTK -DENABLE_GTKDOC=OFF -DCMAKE_LINKER=${XBPS_CROSS_TRIPLET}-gcc"
 short_desc="GTK+3 port of the WebKit2 browser engine"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="http://webkitgtk.org/"
+homepage="https://webkitgtk.org/"
 license="LGPL-2.1, 2-clause-BSD"
 distfiles="${homepage}/releases/webkitgtk-${version}.tar.xz"
-checksum=eb92383232328ce655b703c64370ed3795662479719ad1b4a869ed46769d2945
+checksum=8e0396f3428e757898c5856e642eed4fcd5a20ae03d96d3eaa03b76634be7dd4
 
 # ETOOHUGE
 nodebug=1
@@ -24,12 +24,8 @@ makedepends="
  geoclue2-devel libnotify-devel hyphen-devel"
 
 case "$XBPS_TARGET_MACHINE" in
-aarch64*)
-	broken="https://build.voidlinux.eu/builders/aarch64_builder/builds/1709/steps/shell_3/logs/stdio" ;;
-armv6*)
-	configure_args+=" -DENABLE_JIT=0"
-	CXXFLAGS="-D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1"
-	;;
+armv6*) configure_args+=" -DENABLE_JIT=0" CXXFLAGS="-D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1";;
+aarch64*) configure_args+=" -DUSE_LD_GOLD=0";;
 esac
 
 # Package build options

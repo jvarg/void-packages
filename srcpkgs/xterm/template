@@ -1,6 +1,6 @@
 # Template file for 'xterm'
 pkgname=xterm
-version=327
+version=330
 revision=1
 build_style=gnu-configure
 configure_args="--enable-wide-chars --enable-88-color --enable-broken-osc
@@ -19,7 +19,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://invisible-island.net/xterm/"
 license="MIT"
 distfiles="ftp://invisible-island.net/xterm/$pkgname-$version.tgz"
-checksum=66fb2f6c35b342148f549c276b12a3aa3fb408e27ab6360ddec513e14376150b
+checksum=7aeef9f29f6b95e09f481173c8c3053357bf5ffe162585647f690fd1707556df
 
 post_install() {
 	for f in {u,}xterm.desktop; do

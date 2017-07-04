@@ -1,6 +1,6 @@
 # Template build file for 'libGL'.
 pkgname=libGL
-version=17.0.3
+version=17.1.4
 revision=1
 wrksrc="mesa-${version}"
 build_style=gnu-configure
@@ -13,7 +13,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.mesa3d.org/"
 license="MIT, LGPL-2.1"
 distfiles="https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
-checksum=ca646f5075a002d60ef9123c8a4331cede155c01712ef945a65c59a5e69fe7ed
+checksum=06f3b0e6a28f0d20b7f3391cf67fe89ae98ecd0a686cd545da76557b6cec9cad
 
 hostmakedepends="
  automake libtool flex pkg-config llvm python-Mako libxml2-python $(vopt_if wayland wayland-devel)"
@@ -59,6 +59,15 @@ armv[67]l*)
 	configure_args+=" --disable-xa"
 	;;
 esac
+if [ "$XBPS_GCC_VERSION_MAJOR" -ge 7 ]; then
+	case "$XBPS_TARGET_MACHINE" in
+	armv[5-6]*)
+		# Enable MISSING_64BIT_ATOMICS for armv6*
+		CFLAGS+=" -DMISSING_64BIT_ATOMICS=1"
+		CXXFLAGS+=" -DMISSING_64BIT_ATOMICS=1"
+		;;
+	esac
+fi
 
 # -devel must be the last one for proper order.
 subpackages+=" MesaLib-devel"
@@ -74,14 +83,23 @@ case "$XBPS_TARGET_MACHINE" in
 	*) configure_args+=" --enable-glx-tls";;
 esac
 
-
 pre_configure() {
 	libtoolize -f
 	NOCONFIGURE=1 ./autogen.sh
+	case "$XBPS_TARGET_MACHINE" in
+		armv6*) sed -i src/gallium/drivers/vc4/Makefile.am \
+			-e 's;\(libvc4_neon_la_SOURCES =\) vc4_tiling_lt.c;\1;' \
+			-e 's;\(libvc4_neon_la_CFLAGS = $(AM_CFLAGS)\) -DVC4_BUILD_NEON;\1;'
+			;;
+	esac
 }
 post_install() {
 	vmkdir usr/lib/xorg/modules/extensions
 	ln -s libglx-xorg.so ${DESTDIR}/usr/lib/xorg/modules/extensions/libglx.so
+	if [ -d "$DESTDIR/usr/lib32" ]; then
+		mv "$DESTDIR/usr/lib32/d3d" "$DESTDIR/usr/lib"
+		mv "$DESTDIR/usr/lib32/pkgconfig"/* "$DESTDIR/usr/lib/pkgconfig"
+	fi
 }
 
 libglapi_package() {
@@ -129,7 +147,7 @@ MesaLib-devel_package() {
 		libGL>=${version}_${revision}
 		libGLES>=${version}_${revision} libEGL>=${version}_${revision}
 		libOSMesa>=${version}_${revision} libgbm>=${version}_${revision}
-		$(vopt_if wayland libwayland-egl>=${version}_${revision})"
+		$(vopt_if wayland "libwayland-egl>=${version}_${revision}")"
 	case "$XBPS_TARGET_MACHINE" in
 		i686*|x86_64*)  depends+=" libxatracker>=${version}_${revision}";;
 	esac
@@ -199,4 +217,3 @@ mesa-opencl_package() {
 		vmove "usr/lib/lib*OpenCL*"
 	}
 }
-

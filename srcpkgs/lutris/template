@@ -1,6 +1,6 @@
 # Template file for 'Lutris'
 pkgname=lutris
-version=0.4.6
+version=0.4.11.1
 revision=1
 build_style=python3-module
 wrksrc="${pkgname}"
@@ -12,4 +12,4 @@ maintainer="Jan Wey. <janwey.git@gmail.com>"
 license="GPL-3"
 homepage="https://lutris.net"
 distfiles="${homepage}/releases/${pkgname}_${version}.tar.xz"
-checksum=fb02a4c2d482f44760681b92b6458b1d85d1eaeb903806a5317fe6e13ae15334
+checksum=e234e65f8a27e6e804893697e0ccf76b6ce2f27b6de136da55de1468b3b1a447

@@ -1,15 +1,16 @@
 # Template file for 'shorewall'
 pkgname=shorewall
-version=5.1.3.2
+version=5.1.5
 revision=1
 _disturl="http://www.shorewall.net/pub/${pkgname}/${version:0:3}/${pkgname}-${version:0:5}"
 distfiles="
  ${_disturl}/${pkgname}-${version}.tar.bz2
  ${_disturl}/${pkgname}6-${version}.tar.bz2
  ${_disturl}/${pkgname}-core-${version}.tar.bz2"
-checksum="6576014971f83d1d90aa5e03f7d1dc7eaacf23efb70ec8525f2f28859c25bcbd
- f797f916f6760c9adbef7e15ff4257662a9b352c7848bd7ba0b723a2bad360ee
- 501b283ce6643647e6e7dfc352b014dcf43650199892917fc7effda3aa00c4b3"
+checksum="
+8604f07fcfde07afc6215988d47229a135d1a30da412974fda127af13aef3899
+aac997b2e335ef8d5d041f2b2f791e4dc6abe537f7f009a7b2ac11aabf9391f2
+7ad44b91342538e10be438a2e2bfc987789191865ff57c61bb24e35bdb6b8301"
 depends="shorewall-core perl"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.shorewall.net/"

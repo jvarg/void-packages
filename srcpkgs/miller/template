@@ -1,6 +1,6 @@
 # Template file for 'miller'
 pkgname=miller
-version=5.1.0
+version=5.2.1
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool flex asciidoc"
@@ -10,7 +10,7 @@ license="2-clause-BSD"
 homepage="http://johnkerl.org/miller/"
 distfiles="https://github.com/johnkerl/${pkgname}/archive/v${version}.tar.gz"
 _changelog="https://github.com/johnkerl/miller/releases"
-checksum=07a498c0228e15321798e5f3f6d03ee6ba9aaf13110f55e52ddfadee52b9da6a
+checksum=0160e5fbbff7c3606037b616b5e30a714d16bb160a950d51fde112fca9d6a763
 
 pre_configure() {
 	# Disable debugging and profiling versions, broken on musl.

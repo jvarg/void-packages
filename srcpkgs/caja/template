@@ -1,6 +1,6 @@
 # Template file for 'caja'
 pkgname=caja
-version=1.18.1
+version=1.18.3
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --disable-packagekit --disable-schemas-compile
@@ -16,7 +16,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="LGPL-2"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=1bfece6183fe44bbf6370daf963fa194cfdccd7286c9bf2df9da2a37c42c39d1
+checksum=b562c544f907944b2e1ce426b5e1d1d02886ecfff8d44f0a3ae2a2793ac39256
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then

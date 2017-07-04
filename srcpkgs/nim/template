@@ -1,9 +1,9 @@
 # Template file for 'nim'
 pkgname=nim
-version=0.16.0
+version=0.17.0
 revision=1
-_cversion=0.16.0
-_nimbleversion=0.8.2
+_cversion=0.17.0
+_nimbleversion=0.8.6
 depends="gcc"
 hostmakedepends="ed"
 short_desc="The Nim programming language"
@@ -13,9 +13,9 @@ homepage="http://nim-lang.org/"
 distfiles="https://github.com/nim-lang/Nim/archive/v${version}.tar.gz
  https://github.com/nim-lang/csources/archive/v${_cversion}.tar.gz>csources-${_cversion}.tar.gz
  https://github.com/nim-lang/nimble/archive/v${_nimbleversion}.tar.gz>nimble-${_nimbleversion}.tar.gz"
-checksum="63b35b35d5976fec9d88e3307adb78d2e3988538e5855d13b7f6e6f89c593f7c
- e909cea51c2d1f6b04af955db219877ab9f9666741ccc750334597eded80844e
- 5cfdebdeddf5cf7d32c7b1b047a99d660de4e3a29e29ce7a3216020dc4f301cd"
+checksum="9f954f03a40e8fba32e02fcb91499e518f8e220809aef9e22bb7443c96bbbdcd
+ 6b8de28dc317534e45366b62dcad14b9932c0de398c44e1506f5bbd80019c671
+ af251c1011fe1d6e72a9d18a7672a8b90013dd6659085082e525d31204ca6ddf"
 build_wrksrc=Nim-$version
 create_wrksrc=yes
 nopie=yes
@@ -28,8 +28,14 @@ post_extract() {
 
 do_build() {
 	cd csources
-	CFLAGS= sh build.sh
+	CFLAGS= LDFLAGS= sh build.sh
 	cd ..
+
+	ed lib/wrappers/openssl.nim <<-EDIT
+		,s/versions = "(/versions = "(|.43|.41/
+		w
+		q
+	EDIT
 
 	bin/nim c koch
 	./koch boot -d:release
@@ -55,7 +61,7 @@ do_build() {
 		for _p in \
 			dist/nimble/src/nimble \
 			tools/nimgrep \
-			tools/nimsuggest/nimsuggest
+			nimsuggest/nimsuggest
 		do
 			bin/nim c -d:release --os:linux --cpu:$_arch --listCmd $_p
 			mv $_p bin

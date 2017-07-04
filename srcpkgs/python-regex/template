@@ -1,0 +1,15 @@
+# Template file for 'python-regex'
+pkgname=python-regex
+version=2017.06.23
+revision=3
+wrksrc="regex-${version}"
+build_style=python2-module
+pycompile_module="_regex_core.py regex.py test_regex.py"
+hostmakedepends="python-devel python3-devel"
+makedepends="python-devel python3-devel"
+short_desc="Alternative regular expression module (Python2)"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
+license="PSF"
+homepage="https://pypi.python.org/pypi/regex/"
+distfiles="${PYPI_SITE}/r/regex/regex-$version.tar.gz"
+checksum=808fde10fef1c8aa17a79a1cf9c923c9ccac443be9c6a9bb25622269f6eb647a

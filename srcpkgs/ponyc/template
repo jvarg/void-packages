@@ -1,17 +1,17 @@
 # Template file for 'ponyc'
 pkgname=ponyc
-version=0.12.3
+version=0.14.0
 revision=1
 only_for_archs="x86_64"
 build_style=gnu-makefile
-hostmakedepends="llvm"
+hostmakedepends="llvm3.9"
 makedepends="zlib-devel ncurses-devel"
 short_desc="OO, actor-model, capabilities-secure, high-performance language"
 maintainer="bougyman <bougyman@voidlinux.eu>"
 license="2-clause-BSD"
 homepage="http://ponylang.org/"
 distfiles="https://github.com/CausalityLtd/ponyc/archive/${version}.tar.gz"
-checksum=25338ecb9f64277921a3ec3613c0028ea897b4923e4ca07ae96eea34b4bd8242
+checksum=4a7d05c1b8e6c681c6ee89653b75e0de382176408dc192e3bab2853f812f9dad
 
 do_build() {
 	make config=release destdir=/usr/lib/pony/${version} prefix=/usr

@@ -1,6 +1,6 @@
 # Template file for 'the-silver-searcher'
 pkgname=the_silver_searcher
-version=1.0.2
+version=2.0.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config automake"
@@ -8,9 +8,9 @@ makedepends="pcre-devel zlib-devel liblzma-devel"
 short_desc="Code-searching tool similar to ack, but faster"
 maintainer="Jan S. <jan.schreib@gmail.com>"
 license="Apache-2.0"
-homepage="http://geoff.greer.fm/ag/"
-distfiles="http://geoff.greer.fm/ag/releases/${pkgname}-${version}.tar.gz"
-checksum=6f4a78e1f1dfa5434c19e5a585ac8cefee69986f90920928498217b36b84a46c
+homepage="https://geoff.greer.fm/ag/"
+distfiles="https://geoff.greer.fm/ag/releases/${pkgname}-${version}.tar.gz"
+checksum=003387ebbfdde545841103d0ef812f30a5501a984afb3d5b45fb55714b1e9513
 
 post_install() {
 	rm ${DESTDIR}/usr/share/the_silver_searcher/completions/ag.bashcomp.sh

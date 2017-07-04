@@ -1,6 +1,6 @@
 # Template file for 'python-requests'
 pkgname=python-requests
-version=2.13.0
+version=2.18.1
 revision=1
 noarch=yes
 wrksrc="requests-${version}"
@@ -13,18 +13,10 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="http://python-requests.org/"
 license="Apache-2.0"
 distfiles="${PYPI_SITE}/r/requests/requests-${version}.tar.gz"
-checksum=5722cd09762faa01276230270ff16af7acf7c5c45d623868d9ba116f15791ce8
+checksum=c6f3bdf4a4323ac7b45d01e04a6f6c20e32a052cd04de81e05103abc049ad9b9
 
-post_install() {
-	# replace bundled copy of cacert, chardet, urllib3, and idna
-	for py_sitelib in $py2_sitelib $py3_sitelib; do
-		rm -rf ${DESTDIR}/${py_sitelib}/requests/cacert.pem
-		rm -rf ${DESTDIR}/${py_sitelib}/requests/packages/{chardet,urllib3,idna}
-		ln -sf ../../chardet ${DESTDIR}/${py_sitelib}/requests/packages/chardet
-		ln -sf ../../urllib3 ${DESTDIR}/${py_sitelib}/requests/packages/urllib3
-		ln -sf ../../idna ${DESTDIR}/${py_sitelib}/requests/packages/idna
-		ln -sf /etc/ssl/cert.pem ${DESTDIR}/${py_sitelib}/requests/cacert.pem
-	done
+pre_build() {
+	sed -i '/certifi/d' setup.py
 }
 
 python3-requests_package() {

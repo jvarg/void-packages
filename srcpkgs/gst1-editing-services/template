@@ -1,6 +1,6 @@
 # Template file for 'gst1-editing-services'
 pkgname=gst1-editing-services
-version=1.10.4
+version=1.12.1
 revision=1
 wrksrc="${pkgname/gst1/gstreamer}-${version}"
 build_style=gnu-configure
@@ -11,7 +11,7 @@ maintainer="Toyam Cox <Vaelatern@gmail.com>"
 license="LGPL-2"
 homepage="https://gstreamer.freedesktop.org"
 distfiles="${homepage}/src/${pkgname/gst1/gst}/${pkgname/gst1/gstreamer}-${version}.tar.xz"
-checksum=f2ad6d02dc9d12e899059796e8de03a662f41e4d732797fb4b5ecbc973582144
+checksum=4e5aeda1812f7240f1e12ee7506667f77d1fc0d6183382fc2eecbfa928a91b69
 
 gst1-editing-services-devel_package() {
 	short_desc+=" - development files"

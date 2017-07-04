@@ -1,6 +1,6 @@
 # Template file for 'evolution'
 pkgname=evolution
-version=3.24.1
+version=3.24.3
 revision=1
 build_style=cmake
 configure_args="-DENABLE_AUTOAR=OFF -DENABLE_LIBCRYPTUI=OFF -DENABLE_GTKSPELL=OFF
@@ -18,7 +18,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="https://wiki.gnome.org/Apps/Evolution"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=d2da4996285a3fe2eb48edf604772677e19ac91a44d2b776698141013c4c610f
+checksum=35f3893214a8bdbecf13d073ff123a39f65585c62066241df37f3f561b7d59dd
 
 evolution-devel_package() {
 	depends="GConf-devel gtkhtml-devel>=4.6.0 evolution-data-server-devel

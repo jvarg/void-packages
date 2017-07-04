@@ -1,7 +1,7 @@
 # Template file for 'ogre'
 pkgname=libogre
 version=1.9.0
-revision=7
+revision=9
 build_style=cmake
 _hgrev=108ab0bcc69603dba32c0ffd4bbbc39051f421c9
 configure_args="-DCMAKE_INSTALL_PREFIX=/usr \
@@ -13,7 +13,8 @@ configure_args="-DCMAKE_INSTALL_PREFIX=/usr \
 	-DCMAKE_BUILD_TYPE=Release"
 hostmakedepends="pkg-config graphviz doxygen dejavu-fonts-ttf"
 makedepends="boost-devel freetype-devel libXaw-devel libXrandr-devel
- MesaLib-devel zziplib-devel libcppunit-devel glu-devel libatomic-devel"
+ MesaLib-devel zziplib-devel libcppunit-devel glu-devel libatomic-devel
+ freeimage-devel"
 short_desc="Scene-oriented, flexible 3D engine"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 homepage="http://www.ogre3d.org"
@@ -26,6 +27,10 @@ make_build_target="all OgreDoc"
 if [ ${XBPS_GCC_VERSION_MAJOR} -gt 5 ]; then
 	CXXFLAGS="-fcheck-new -fno-delete-null-pointer-checks -fno-lifetime-dse"
 fi
+
+case "$XBPS_TARGET_MACHINE" in
+	aarch64*) broken="https://build.voidlinux.eu/builders/aarch64_builder/builds/3248/steps/shell_3/logs/stdio";;
+esac
 
 post_install() {
 	vmkdir /usr/share/doc

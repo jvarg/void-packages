@@ -1,13 +1,13 @@
 # Template build file for 'thunderbird'.
 pkgname=thunderbird
-version=52.0.1
+version=52.2.1
 revision=1
 short_desc="Standalone Mail/News reader"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 homepage="http://www.mozilla.org/thunderbird/"
 license="MPL-2.0, GPL-2, LGPL-2.1"
 distfiles="${MOZILLA_SITE}/${pkgname}/releases/${version}/source/${pkgname}-${version}.source.tar.xz"
-checksum=a1cede97e836c728d3157b9e043f3724f7aff83f92ba1f3796e9cc7299402cab
+checksum=8b9e4b787f9059973bb3cae41c3957d6907e13e5f0b2310f3730d59ce7d8779a
 
 only_for_archs="i686 i686-musl x86_64 x86_64-musl"
 nopie=yes
@@ -46,7 +46,11 @@ post_extract() {
 
 	# Google API key (see http://www.chromium.org/developers/how-tos/api-keys)
 	# Note: This is for Void Linux use ONLY.
-	echo -n "AIzaSyCIFdBA7eQP43R6kXRwTq7j6Mvj1ITze90" >google-api-key
+	echo -n "AIzaSyCIFdBA7eQP43R6kXRwTq7j6Mvj1ITze90" > google-api-key
+
+	# Mozilla API keys (see https://location.services.mozilla.com/api)
+	# Note: This is for Void Linux use ONLY.
+	echo -n "cd894504-7a2a-4263-abff-ff73ee89ffca" > mozilla-api-key
 }
 do_build() {
 	cp "${FILESDIR}/mozconfig" "${wrksrc}/.mozconfig"
@@ -88,6 +92,7 @@ do_build() {
 
 	cat <<! >>.mozconfig
 ac_add_options --with-google-api-keyfile="${wrksrc}/google-api-key"
+ac_add_options --with-mozilla-api-keyfile="${wrksrc}/mozilla-api-key"
 ac_add_options --enable-default-toolkit=cairo-gtk$(vopt_if gtk3 '3' '2')
 ac_add_options $(vopt_enable alsa)
 ac_add_options $(vopt_enable dbus)

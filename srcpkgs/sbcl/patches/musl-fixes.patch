@@ -63,27 +63,17 @@
  #define QSHOW_BLOCK                                             \
 --- src/runtime/wrap.c	2016-11-30 08:07:36.000000000 +1100
 +++ src/runtime/wrap.c	2016-12-23 22:02:15.792123225 +1100
-@@ -35,6 +35,9 @@
+@@ -35,7 +35,10 @@
  #include <errno.h>
  #include <limits.h>
  #include <fcntl.h>
+ #include <math.h>
 +#ifndef __GLIBC__
 +#include <time.h>
 +#endif
  
  #ifndef LISP_FEATURE_WIN32
  #include <pwd.h>
---- src/runtime/GNUmakefile	2016-11-30 08:07:36.000000000 +1100
-+++ src/runtime/GNUmakefile	2016-12-17 16:41:46.823387383 +1100
-@@ -24,7 +24,7 @@
- 
- include ../../output/prefix.def
- 
--CFLAGS = -g -Wall -Wsign-compare -O3
-+CFLAGS = -g -Wall -Wsign-compare -O3 -D_GNU_SOURCE=1
- ASFLAGS = $(CFLAGS)
- CPPFLAGS = -I. -DSBCL_PREFIX=\"$(SBCL_PREFIX)\"
- 
 --- contrib/sb-bsd-sockets/constants.lisp.orig
 +++ contrib/sb-bsd-sockets/constants.lisp
 @@ -93,8 +93,8 @@

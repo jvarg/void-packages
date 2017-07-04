@@ -53,13 +53,17 @@ The `template files` are `GNU bash` shell scripts that must define some required
 `variables` and `functions` that are processed by `xbps-src` (the package builder)
 to generate the resulting binary packages.
 
+By convention, all templates start with a comment briefly explaining what they
+are. In addition, pkgname and version can't have any characters in them that
+would require them to be quoted, so they are not quoted.
+
 A simple `template` example is as follows:
 
 ```
 # Template file for 'foo'
 
-pkgname="foo"
-version="1.0"
+pkgname=foo
+version=1.0
 revision=1
 build_style=gnu-configure
 short_desc="A short description max 72 chars"
@@ -120,6 +124,8 @@ function, which is the directory to be used to compile the `source package`.
 
 - `build` This phase compiles/prepares the `source files` via `make` or any other compatible method.
 
+- `check` This optional phase checks the result of the `build` phase for example by running `make -k check`.
+
 - `install` This phase installs the `package files` into the package destdir `<masterdir>/destdir/<pkgname>-<version>`,
 via `make install` or any other compatible method.
 
@@ -142,7 +148,7 @@ Libraries are packages which provide shared objects (\*.so) in /usr/lib.
 They should be named like their upstream package name with the following
 exceptions:
 
-- The package is a subpackage of a front end application providing and provides
+- The package is a subpackage of a front end application and provides
 shared objects used by the base package and other third party libraries. In that
 case it should be prefixed with 'lib'. An exception from that rule is: If an
 executable is only used for building that package, it moves to the -devel
@@ -150,7 +156,7 @@ package.
 
 Example: wireshark -> subpkg libwireshark
 
-Libraries have to be split into two sub packages: <name> and <name>-devel.
+Libraries have to be split into two sub packages: `<name>` and `<name>-devel`.
 
 - `<name>` should only contain those parts of a package which are needed to run
 a linked program.
@@ -332,7 +338,10 @@ The list of mandatory variables for a template:
 - `license` A string matching any license file available in `/usr/share/licenses`.
 Multiple licenses should be separated by commas, i.e `GPL-3, LGPL-2.1`.
 
-- `maintainer` A string in the form of `name <user@domain>`.
+- `maintainer` A string in the form of `name <user@domain>`.  The
+  email for this field must be a valid email that you can be reached
+  at.  Packages using `users.noreply.github.com` emails will not be
+  accepted.
 
 - `pkgname` A string with the package name, matching `srcpkgs/<pkgname>`.
 
@@ -357,6 +366,10 @@ Example `hostmakedepends="foo blah"`.
 will be installed to the master directory. There is no need to specify a version
 because the current version in srcpkgs will always be required.
 Example `makedepends="foo blah"`.
+
+- `checkdepends` The list of dependencies required to run the package checks, i.e.
+the script or make rule specified in the template's `do_check()` function.
+Example `checkdepends="gtest"`.
 
 - `depends` The list of dependencies required to run the package. These dependencies
 are not installed to the master directory, rather are only checked if a binary package
@@ -645,7 +658,10 @@ arguments can be passed in via `configure_args`.
 - `gnu-makefile` For packages that use GNU make, build arguments can be passed in via
 `make_build_args` and install arguments via `make_install_args`. The build
 target can be overridden via `make_build_target` and the install target
-via `make_install_target`.
+via `make_install_target`. This build style tries to compensate for makefiles
+that do not respect environment variables, so well written makefiles, those
+that do such things as append (`+=`) to variables, should have `make_use_env`
+set in the body of the template.
 
 - `go` For programs written in Go that follow the standard package
   structure. The variable `go_import_path` must be set to the package's
@@ -659,6 +675,13 @@ via `make_install_target`.
 depend on additional packages. This build style does not install
 dependencies to the root directory, and only checks if a binary package is
 available in repositories.
+
+- `R-cran` For packages that are available on The Comprehensive R Archive
+Network (CRAN). The build style requires the `pkgname` to start with
+`R-cran-` and any dashes (`-`) in the CRAN-given version to be replaced
+with the character `r` in the `version` variable. The `distfiles`
+location will automatically be set as well as the package made to depend
+on `R`.
 
 - `ruby-module` For packages that are ruby modules and are installable via `ruby install.rb`.
 Additional install arguments can be specified via `make_install_args`.
@@ -1176,8 +1199,10 @@ and set build style to `haskell-stack`.
 The following variables influence how Haskell packages are built:
 
 - `stackage`: The Stackage version used to build the package, e.g.
-  `lts-3.5`.  Alternatively, you can prepare a `stack.yaml`
-  configuration for the project and put it into `files/stack.yaml`.
+  `lts-3.5`. Alternatively:
+  - You can prepare a `stack.yaml` configuration for the project and put it
+    into `files/stack.yaml`.
+  - If a `stack.yaml` file is present in the source files, it will be used
 - `make_build_args`: This is passed as-is to `stack build ...`, so
   you can add your `--flag ...` parameters there.
 

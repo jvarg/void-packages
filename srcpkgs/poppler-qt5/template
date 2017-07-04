@@ -4,24 +4,24 @@
 # A CYCLIC DEPENDENCY: qt5 -> cups -> poppler -> qt5.
 #
 pkgname=poppler-qt5
-version=0.53.0
+version=0.56.0
 revision=1
 wrksrc="poppler-${version}"
 build_style=gnu-configure
-configure_args="--enable-zlib --enable-libcurl --enable-libjpeg
- --enable-libtiff --disable-libopenjpeg --enable-cairo-output
+configure_args="--enable-zlib --enable-libcurl --enable-libtiff
+ --enable-libopenjpeg=openjpeg2 --enable-cairo-output
  --enable-xpdf-headers --disable-gtk-test --disable-poppler-glib
  --disable-poppler-qt4 --enable-poppler-qt5 --disable-poppler-cpp
  --disable-utils --disable-static --disable-introspection"
 hostmakedepends="pkg-config qt5-devel"
 makedepends="libpng-devel tiff-devel lcms2-devel libcurl-devel
- fontconfig-devel cairo-devel qt5-devel"
+ fontconfig-devel cairo-devel libopenjpeg2-devel qt5-devel"
 short_desc="PDF rendering library - Qt5 bindings"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="http://poppler.freedesktop.org"
 distfiles="${homepage}/poppler-$version.tar.xz"
-checksum=592bf72960c6b5948b67657594b05e72d9a278daf7613c9f3cdff9a5b73096a8
+checksum=869dbadf99ed882e776acbdbc06689d8a81872a2963440b1e8516cd7a2577173
 
 post_install() {
 	rm -f ${DESTDIR}/usr/lib/libpoppler.*

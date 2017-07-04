@@ -1,0 +1,22 @@
+# Template file for 'tokei'
+pkgname=tokei
+version=6.0.1
+revision=1
+hostmakedepends="cargo rust"
+short_desc="Count lines of code"
+maintainer="Joseph LaFreniere <joseph@lafreniere.xyz>"
+license="Apache, MIT"
+homepage="https://github.com/Aaronepower/tokei"
+distfiles="${homepage}/archive/v${version}.tar.gz"
+checksum=f7f455995fa4f14019bb2f3a5203d7b551d8c453e9b7a533de6fa8d707c7fd74
+nocross=yes
+
+do_build() {
+	cargo build --release
+}
+
+do_install() {
+	vbin target/release/tokei
+	vlicense LICENCE-APACHE
+	vlicense LICENCE-MIT
+}
